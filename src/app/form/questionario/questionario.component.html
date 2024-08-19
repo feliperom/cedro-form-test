@@ -1,0 +1,53 @@
+<div class="container">
+  <h1>PERFIL DO INVESTIDOR - QUESTIONÁRIO</h1>
+  <form
+    *ngIf="questionarioForm"
+    [formGroup]="questionarioForm"
+    (ngSubmit)="onSubmit()"
+    class="questionario-form"
+  >
+    <div class="question-line" *ngFor="let question of questions">
+      <h3>{{ question.question }}</h3>
+      <ng-container class="question-row" [ngSwitch]="question.type">
+        <ng-container *ngSwitchCase="'radio'">
+          <mat-radio-group [formControlName]="question.name">
+            <mat-radio-button
+              *ngFor="let option of question.options"
+              [value]="option.text"
+              (change)="onOptionSelected(question, option)"
+            >
+              {{ option.text }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </ng-container>
+        <ng-container *ngSwitchCase="'select'">
+          <mat-form-field *ngFor="let subQuestion of question.subQuestions">
+            <mat-label>{{ subQuestion.text }}</mat-label>
+            <mat-select
+              [formControlName]="question.name"
+              (selectionChange)="onSelectOption(question, subQuestion, $event)"
+            >
+              <mat-option
+                *ngFor="let option of question.options"
+                [value]="option.id"
+                >{{ option.text }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div class="button-row">
+      <button mat-stroked-button type="button">VOLTAR</button>
+      <button
+        mat-raised-button
+        [disabled]="!questionarioForm.valid"
+        color="primary"
+        type="submit"
+      >
+        SALVAR
+      </button>
+    </div>
+  </form>
+</div>

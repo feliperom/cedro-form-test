@@ -1,0 +1,15 @@
+<div class="termo-modal">
+    <h2 mat-dialog-title>TERMO</h2>
+    <mat-dialog-content>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+        has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+        took a galley of type and scrambled it to make a type
+      </p>
+      <mat-checkbox [(ngModel)]="aceitoTermos" (change)="check()">Li e aceito os termos e condições acima</mat-checkbox>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close (click)="fecharModal()">X</button>
+      <button mat-raised-button color="primary" [disabled]="!aceitoTermos" (click)="fecharModal()">OK, ENTENDI</button>
+    </mat-dialog-actions>
+  </div>

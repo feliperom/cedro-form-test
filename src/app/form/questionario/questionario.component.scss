@@ -1,0 +1,52 @@
+h1 {
+  text-align: center;
+  font-size: 18px;
+}
+.questionario-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  h2 {
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+  }
+
+  mat-radio-group {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+  }
+
+  mat-radio-button {
+    margin-bottom: 10px;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .question-line {
+    border-bottom: 1px dashed gray;
+  }
+
+  .question-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    button {
+      min-width: 120px;
+    }
+  }
+}
