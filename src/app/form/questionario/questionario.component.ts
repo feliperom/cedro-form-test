@@ -1,6 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -14,7 +13,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { QuestionarioService } from '../../services/form/questionario.service';
 import { Router } from '@angular/router';
-import { QuestionarioStateService, QuestionResponse } from '../../services/form/questionario-state.service';
+import {
+  QuestionarioStateService,
+  QuestionResponse,
+} from '../../services/form/questionario-state.service';
 
 @Component({
   selector: 'app-questionario',
@@ -43,18 +45,16 @@ export class QuestionarioComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.questionService.getQuestions().subscribe(
-      questions => {
-        this.questions = questions;
-        this.createForm();
-      }
-    );
+    this.questionService.getQuestions().subscribe((questions) => {
+      this.questions = questions;
+      this.createForm();
+    });
   }
 
   createForm() {
     const group: any = {};
     this.questionarioForm = new FormGroup({});
-    this.questions.forEach(question => {
+    this.questions.forEach((question) => {
       group[question.name] = new FormControl('', [Validators.required]);
     });
     this.questionarioForm = new FormGroup(group);
@@ -66,14 +66,16 @@ export class QuestionarioComponent implements OnInit {
       questionId: question.id,
       question: question.question,
       selectedOption: option.id,
-      selectedOptionText: option.text
+      selectedOptionText: option.text,
     };
     this.questionarioState.atualizarResposta(resposta);
   }
 
   onSelectOption(question: any, subQuestion: any, event: any) {
     const selectedOptionId = event.value;
-    const selectedOption = question.options.find((opt: any) => opt.id === selectedOptionId);
+    const selectedOption = question.options.find(
+      (opt: any) => opt.id === selectedOptionId
+    );
     if (selectedOption) {
       const resposta: any = {
         name: question.name,
@@ -81,20 +83,15 @@ export class QuestionarioComponent implements OnInit {
         subQuestionId: subQuestion.id,
         question: subQuestion.text,
         selectedOption: selectedOption.id,
-        selectedOptionText: selectedOption.text
+        selectedOptionText: selectedOption.text,
       };
       this.questionarioState.atualizarResposta(resposta);
     }
-  }
-
-  isFormValid() {
-    return this.questionarioForm.invalid;
   }
 
   onSubmit() {
     if (!this.questionarioForm.valid) {
       this.router.navigate(['/tela-sucesso']);
     }
-    console.log(this.questionarioForm);
   }
 }
